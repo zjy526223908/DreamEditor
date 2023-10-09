@@ -64,7 +64,6 @@ You can ignore this step and use the initial nerf we provide.
 ```
 
 ### step3 editing
-We use progressive training strategy to generate a full 360° 3D geometry. Run the command and modify the workspace name `NAME` and the path of the reference image `IMGPATH`. We first optimize the scene under frontal camera views. 
 ```
    bash run_step3.sh
 ```
