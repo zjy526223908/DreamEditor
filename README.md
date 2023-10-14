@@ -87,5 +87,5 @@ If you find this code helpful for your research, please cite:
 ```
 
 ## Acknowledgments
-This code based on [Stable-Dreamfusion](https://github.com/ashawkey/stable-dreamfusion), [Dreambooth](https://huggingface.co/docs/diffusers/training/dreambooth), [Textual Inversion](https://huggingface.co/docs/diffusers/training/text_inversion). 
+This code based on [Stable-Dreamfusion](https://github.com/ashawkey/stable-dreamfusion), [Dreambooth](https://huggingface.co/docs/diffusers/training/dreambooth), [DAAM](https://github.com/castorini/daam). 
 
