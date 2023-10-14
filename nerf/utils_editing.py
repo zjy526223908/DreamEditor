@@ -61,16 +61,17 @@ class Trainer(object):
         self.opt = opt
         self.opt_back = opt_back
 
-        self.mask_mesh = o3d.io.read_triangle_mesh(opt.prior_mask_mesh)
-        self.mask_mesh_sampler = MeshSampler(self.mask_mesh, device, self.opt)
+        if not opt.test:
+            self.mask_mesh = o3d.io.read_triangle_mesh(opt.prior_mask_mesh)
+            self.mask_mesh_sampler = MeshSampler(self.mask_mesh, device, self.opt)
 
-        mask_vector_info_path =  opt.mesh_mask_info
-        self.mesh_info_dict = np.load(mask_vector_info_path,  allow_pickle=True).item()
+            mask_vector_info_path =  opt.mesh_mask_info
+            self.mesh_info_dict = np.load(mask_vector_info_path,  allow_pickle=True).item()
 
-        self.mask = torch.LongTensor(self.mesh_info_dict['editing_mask']).to(self.device)
-        self.mask_vector_noedge = torch.LongTensor(self.mesh_info_dict['editing_mask_noedge']).to(self.device).unsqueeze(1).repeat(1, 3)
-        self.mask_fea = torch.LongTensor(self.mesh_info_dict['editing_mask']).to(self.device).unsqueeze(1).repeat(1, opt.color_dim)
-        self.mask_vector = torch.LongTensor(self.mesh_info_dict['editing_mask']).to(self.device).unsqueeze(1).repeat(1, 3)
+            self.mask = torch.LongTensor(self.mesh_info_dict['editing_mask']).to(self.device)
+            self.mask_vector_noedge = torch.LongTensor(self.mesh_info_dict['editing_mask_noedge']).to(self.device).unsqueeze(1).repeat(1, 3)
+            self.mask_fea = torch.LongTensor(self.mesh_info_dict['editing_mask']).to(self.device).unsqueeze(1).repeat(1, opt.color_dim)
+            self.mask_vector = torch.LongTensor(self.mesh_info_dict['editing_mask']).to(self.device).unsqueeze(1).repeat(1, 3)
 
         self.mute = mute
         self.metrics = metrics
@@ -96,57 +97,58 @@ class Trainer(object):
             model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[local_rank])
         self.model = model
 
-        # guide model
-        self.guidance = guidance
+        if not opt.test:
+            # guide model
+            self.guidance = guidance
 
-        if background_model:
-            background_model.to(self.device)
-        self.background_model = background_model
-        if opt.backnerf_path:
-            backnerf_checkpoint_dict = torch.load(opt.backnerf_path, map_location=self.device)
-            self.background_model.load_state_dict(backnerf_checkpoint_dict['model'], strict=False)
-            self.background_model.eval()
+            if background_model:
+                background_model.to(self.device)
+            self.background_model = background_model
+            if opt.backnerf_path:
+                backnerf_checkpoint_dict = torch.load(opt.backnerf_path, map_location=self.device)
+                self.background_model.load_state_dict(backnerf_checkpoint_dict['model'], strict=False)
+                self.background_model.eval()
 
-        # loss
-        prior_mask_mesh = o3d.io.read_triangle_mesh(opt.prior_mask_mesh)
-        center_point = torch.tensor(np.mean(np.asarray(prior_mask_mesh.vertices), axis=0)).float().to(device)
-        self.center_point = center_point
-
-        self.norm = None
-        self.laplacian_loss = None
-        self.flatten_loss = None
-        self.norm_loss = None
-        self.edge_loss = None
-        self.arap_loss = None
-        self.define_mesh_loss(prior_mask_mesh, if_norm=True)
-
-        # text prompt
-        if self.guidance is not None:
-            for p in self.guidance.parameters():
-                p.requires_grad = False
-            self.prepare_text_embeddings()
-        else:
-            self.text_z = None
-
-        if isinstance(criterion, nn.Module):
-            criterion.to(self.device)
-        self.criterion = criterion
-
-        optimizer1 = lambda model: torch.optim.Adam(model.get_text_geo_params(opt.lr), betas=(0.9, 0.99), eps=1e-15)
-        optimizer2 = lambda model: torch.optim.Adam(model.get_vector_only(opt.lr), betas=(0.9, 0.99), eps=1e-15)
-        optimizer3 = lambda model: torch.optim.Adam(model.get_text_geo_params_only(opt.lr), betas=(0.9, 0.99), eps=1e-15)
-
-        self.scheduler_f = lambda optimizer: optim.lr_scheduler.LambdaLR(optimizer, lambda iter: 0.1 ** min(iter / opt.iters, 1))
-
-        self.optimizer1 = optimizer1(self.model)
-        self.optimizer2 = optimizer2(self.model)
-        self.optimizer3 = optimizer3(self.model)
+            # loss
+            prior_mask_mesh = o3d.io.read_triangle_mesh(opt.prior_mask_mesh)
+            center_point = torch.tensor(np.mean(np.asarray(prior_mask_mesh.vertices), axis=0)).float().to(device)
 
 
+            self.norm = None
+            self.laplacian_loss = None
+            self.flatten_loss = None
+            self.norm_loss = None
+            self.edge_loss = None
+            self.arap_loss = None
+            self.define_mesh_loss(prior_mask_mesh, if_norm=True)
 
-        self.lr_scheduler1 = self.scheduler_f(self.optimizer1)
-        self.lr_scheduler2 = self.scheduler_f(self.optimizer2)
-        self.lr_scheduler3 = self.scheduler_f(self.optimizer3)
+            # text prompt
+            if self.guidance is not None:
+                for p in self.guidance.parameters():
+                    p.requires_grad = False
+                self.prepare_text_embeddings()
+            else:
+                self.text_z = None
+
+            if isinstance(criterion, nn.Module):
+                criterion.to(self.device)
+            self.criterion = criterion
+
+            optimizer1 = lambda model: torch.optim.Adam(model.get_text_geo_params(opt.lr), betas=(0.9, 0.99), eps=1e-15)
+            optimizer2 = lambda model: torch.optim.Adam(model.get_vector_only(opt.lr), betas=(0.9, 0.99), eps=1e-15)
+            optimizer3 = lambda model: torch.optim.Adam(model.get_text_geo_params_only(opt.lr), betas=(0.9, 0.99), eps=1e-15)
+
+            self.scheduler_f = lambda optimizer: optim.lr_scheduler.LambdaLR(optimizer, lambda iter: 0.1 ** min(iter / opt.iters, 1))
+
+            self.optimizer1 = optimizer1(self.model)
+            self.optimizer2 = optimizer2(self.model)
+            self.optimizer3 = optimizer3(self.model)
+
+
+
+            self.lr_scheduler1 = self.scheduler_f(self.optimizer1)
+            self.lr_scheduler2 = self.scheduler_f(self.optimizer2)
+            self.lr_scheduler3 = self.scheduler_f(self.optimizer3)
 
 
         self.ema = None
@@ -177,11 +179,13 @@ class Trainer(object):
             self.log_path = os.path.join(workspace, f"log_{self.name}.txt")
             self.log_ptr = open(self.log_path, "a+")
 
+
             self.ckpt_path = os.path.join(self.workspace, 'checkpoints')
             self.best_path = f"{self.ckpt_path}/{self.name}.pth"
             os.makedirs(self.ckpt_path, exist_ok=True)
 
-            o3d.io.write_triangle_mesh(os.path.join(workspace, 'tmp.ply'), self.mask_mesh)
+            if not opt.test:
+                o3d.io.write_triangle_mesh(os.path.join(workspace, 'tmp.ply'), self.mask_mesh)
 
         self.log(
             f'[INFO] Trainer: {self.name} | {self.time_stamp} | {self.device} | {"fp16" if self.fp16 else "fp32"} | {self.workspace}')

@@ -7,7 +7,8 @@
 </div>
 
 
-### [Project page](https://www.sysu-hcp.net/projects/cv/111.html) |   [Paper](https://arxiv.org/abs/2306.13455) | [Data](https://drive.google.com/drive/folders/12_PlC9cd8ZPg3tXrxJ1m-HKAGYDiahjc?usp=sharing)
+### [Project page](https://www.sysu-hcp.net/projects/cv/111.html) |[Paper](https://arxiv.org/abs/2306.13455) |[Data](https://drive.google.com/drive/folders/12_PlC9cd8ZPg3tXrxJ1m-HKAGYDiahjc?usp=sharing) |[Initial Models](https://drive.google.com/drive/folders/1RHAAv_8IGeH-yTE-DloR3XFPNGfHfUs8?usp=drive_link) |[Edited Models](https://drive.google.com/drive/folders/1byCQcBQYY8wWGvN0DTF7L-9AtgmbkaAC?usp=drive_link) 
+
 
 
 ## Abstract
@@ -53,7 +54,7 @@ Training requirements
 ## Training 
 
 ### step1 distillation
-You can ignore this step and use the initial nerf we provide.
+You can ignore this step and use the [initial models](https://drive.google.com/drive/folders/1RHAAv_8IGeH-yTE-DloR3XFPNGfHfUs8?usp=drive_link) we provide.
 ```
     bash run_step1.sh
 ```
@@ -68,6 +69,10 @@ You can ignore this step and use the initial nerf we provide.
    bash run_step3.sh
 ```
 
+### testing
+```
+   bash test.sh
+```
 
 ## Citation
 If you find this code helpful for your research, please cite:
