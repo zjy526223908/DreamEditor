@@ -44,7 +44,7 @@ python locating_editing_region.py \
   --workspace_path '../data/dtu_scan105/locating2/sunglasses' \
   --sd_path '../res/dtu_scan105-neus/dreambooth_res' \
   --output_images_path '../res/dtu_scan105-neus/sample_views'  --orient_r_path  '../data/dtu_scan105/Orient_R.npy'  \
-  --mesh_path '../data/dtu_scan105/g_50k.ply' \
+  --mesh_path '../data/dtu_scan105/doll.ply' \
   --radius_list 0.5  --fovy_list 50 --phi_list 0  --theta_list 75  \
   --prompt "a photo of a <plush> toy wearing black sunglasses"   \
   --key_word "sunglasses"  --threshold 0.75
@@ -53,7 +53,7 @@ python locating_editing_region.py \
   --workspace_path '../data/dtu_scan105/locating/hat' \
   --sd_path '../res/dtu_scan105-neus/dreambooth_res' \
   --output_images_path '../res/dtu_scan105-neus/sample_views'  --orient_r_path  '../data/dtu_scan105/Orient_R.npy'  \
-  --mesh_path '../data/dtu_scan105/g_50k.ply' \
+  --mesh_path '../data/dtu_scan105/doll.ply' \
   --radius_list 0.5  --fovy_list 50 --phi_list -90 0 90 -180 --theta_list 60  \
   --prompt "a photo of a <ktn> plush toy wearing a hat"   \
   --key_word "hat"  --threshold 0.75
@@ -62,7 +62,7 @@ python locating_editing_region.py \
   --workspace_path '../data/dtu_scan105/locating2/apron' \
   --sd_path '../res/dtu_scan105-neus/dreambooth_res' \
   --output_images_path '../res/dtu_scan105-neus/sample_views'  --orient_r_path  '../data/dtu_scan105/Orient_R.npy'  \
-  --mesh_path '../data/dtu_scan105/g_50k.ply' \
+  --mesh_path '../data/dtu_scan105/doll.ply' \
   --radius_list 0.5  --fovy_list 50 --phi_list 0 --theta_list 75  \
   --prompt "a photo of a <ktn> plush toy wearing a blue apron"   \
   --key_word "apron"  --threshold 0.6
@@ -71,7 +71,7 @@ python locating_editing_region.py \
   --workspace_path '../data/dtu_scan105/locating/toy' \
   --sd_path '../res/dtu_scan105-neus/dreambooth_res' \
   --output_images_path '../res/dtu_scan105-neus/sample_views'  --orient_r_path  '../data/dtu_scan105/Orient_R.npy'  \
-  --mesh_path '../data/dtu_scan105/g_50k.ply' \
+  --mesh_path '../data/dtu_scan105/doll.ply' \
   --radius_list 0.5  --fovy_list 50 --phi_list -180 -90 0 90 --theta_list 75  \
   --prompt "a photo of a <ktn> plush toy"   \
   --key_word "plush"  --threshold 0.5 --max_depth 20

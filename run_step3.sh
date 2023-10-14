@@ -8,8 +8,8 @@ python3 train_editing.py  \
 --seed 1 --stop_vector_epoch 10 --eval_interval 4  \
 --R_path data/dtu_scan105/Orient_R.npy \
 --backnerf_path res/dtu_scan105-grid/checkpoints/df_ep0460.pth  \
---load_path res/diss-dtu_scan105-g_50k/checkpoints/df_ep4600.pth \
---prior_mesh data/dtu_scan105/g_50k.ply \
+--load_path res/diss-dtu_scan105-doll/checkpoints/df_ep4600.pth \
+--prior_mesh data/dtu_scan105/doll.ply \
 --lambda_arap 1e-4	 --lambda_laplacian 1e-4 --lambda_eikonal 1 \
 --text "a photo of a <ktn> plush toy wearing black sunglasses"  	\
 --sd_path res/dtu_scan105-neus/dreambooth_res  \
@@ -28,8 +28,8 @@ python3 train_editing.py  \
 --seed 1 --stop_vector_epoch 20 --eval_interval 4  \
 --R_path data/dtu_scan105/Orient_R.npy \
 --backnerf_path res/dtu_scan105-grid/checkpoints/df_ep0460.pth  \
---load_path res/diss-dtu_scan105-g_50k/checkpoints/df_ep4600.pth \
---prior_mesh data/dtu_scan105/g_50k.ply \
+--load_path res/diss-dtu_scan105-doll/checkpoints/df_ep4600.pth \
+--prior_mesh data/dtu_scan105/doll.ply \
 --lambda_arap 0	 --lambda_laplacian 1e-10 --lambda_eikonal 1 \
 --text "a photo of a <ktn> plush toy wearing a red top hat" 	\
 --sd_path res/dtu_scan105-neus/dreambooth_res  \
@@ -49,8 +49,8 @@ python3 train_editing.py  \
 --seed 1 --stop_vector_epoch 20 --eval_interval 4  \
 --R_path data/dtu_scan105/Orient_R.npy \
 --backnerf_path res/dtu_scan105-grid/checkpoints/df_ep0460.pth  \
---load_path res/diss-dtu_scan105-g_50k/checkpoints/df_ep4600.pth \
---prior_mesh data/dtu_scan105/g_50k.ply \
+--load_path res/diss-dtu_scan105-doll/checkpoints/df_ep4600.pth \
+--prior_mesh data/dtu_scan105/doll.ply \
 --lambda_arap 1e-4	 --lambda_laplacian 1e-4 --lambda_eikonal 1 \
 --text "a photo of a <ktn> plush toy wearing a blue apron" 	\
 --sd_path res/dtu_scan105-neus/dreambooth_res  \
@@ -71,8 +71,8 @@ python3 train_editing.py  \
 --seed 1 --stop_vector_epoch 20 --eval_interval 4  \
 --R_path data/dtu_scan105/Orient_R.npy \
 --backnerf_path res/dtu_scan105-grid/checkpoints/df_ep0460.pth  \
---load_path res/diss-dtu_scan105-g_50k/checkpoints/df_ep4600.pth \
---prior_mesh data/dtu_scan105/g_50k.ply \
+--load_path res/diss-dtu_scan105-doll/checkpoints/df_ep4600.pth \
+--prior_mesh data/dtu_scan105/doll.ply \
 --lambda_arap 1e-4	 --lambda_laplacian 1e-4 --lambda_eikonal 1 \
 --text "a photo of a <ktn> gold toy made of gold" 	\
 --sd_path res/dtu_scan105-neus/dreambooth_res  \
