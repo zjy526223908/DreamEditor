@@ -70,6 +70,7 @@ You can ignore this step and use the [initial models](https://drive.google.com/d
 ```
 
 ### testing
+Download [Results](https://drive.google.com/drive/folders/1byCQcBQYY8wWGvN0DTF7L-9AtgmbkaAC?usp=drive_link) and unzip in res_model
 ```
    bash test.sh
 ```
