@@ -16,7 +16,6 @@ python train_init_nerf.py -O --workspace ./res/dtu_scan105-grid  \
 # train init neus
 python train_init_nerf.py -O2 --workspace ./res/dtu_scan105-neus   \
 --lambda_eikonal 0.1 --batch_rays 512 \
---R_path  data/dtu_scan105/Orient_R.npy \
 --backbone neus --train_resolution_level 1 --eval_resolution_level 4 \
 --data_type 'dtu' --data_path ./data/dtu_scan105 --H 1200 --W 1600  --eval_interval 100  --bound 1.0
 
