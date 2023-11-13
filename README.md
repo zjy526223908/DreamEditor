@@ -53,6 +53,7 @@ Training requirements
 
 ## Training 
 
+
 ### step1 distillation
 You can ignore this step and use the [initial models](https://drive.google.com/drive/folders/1RHAAv_8IGeH-yTE-DloR3XFPNGfHfUs8?usp=drive_link) we provide.
 ```
@@ -74,6 +75,23 @@ Download [Results](https://drive.google.com/drive/folders/1byCQcBQYY8wWGvN0DTF7L
 ```
    bash test.sh
 ```
+
+### QA
+1. How to extract prior mesh?
+
+Answer: 
+```
+   python train_init_nerf.py -O --workspace ./res/dtu_scan105-grid  --test --save_mesh
+```
+
+2. How to get Orient_R.npy?
+Answer: We use meshlab to align the pose of the mesh. Click Filters->Normals,Curvatures and Orientation->Matrix: Set from translation\rotation\scale.
+
+<div class="half">
+    <img src="demo/R.png" width="1024">
+</div>
+
+
 
 ## Citation
 If you find this code helpful for your research, please cite:
