@@ -85,8 +85,8 @@ Answer:
 ```
 
 2. How to get Orient_R.npy?
-Answer: We use meshlab to align the pose of the mesh. Click Filters->Normals,Curvatures and Orientation->Matrix: Set from translation\rotation\scale.
-
+Answer: We use meshlab to align the pose of the mesh. Click Filters->Normals,Curvatures and Orientation->Matrix: Set from translation\rotation\scale. 
+Make sure the Y-axis is vertical and upward to the ground, and the object is oriented in the same direction as the z-axis.
 <div class="half">
     <img src="demo/R.png" width="1024">
 </div>
