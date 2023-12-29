@@ -647,7 +647,6 @@ class Trainer(object):
                 self.opt.learn_vector = False
 
                 self.update_mask_mesh_sampler((self.model.mesh_vertices + self.model.mesh_vertices_offset))
-                self.update_model_mesh_sampler((self.model.mesh_vertices + self.model.mesh_vertices_offset))
                 train_loader = SphericalSamplingDataset(self.opt, device=self.device, R_path=self.opt.R_path, type='train',
                                                         H=self.opt.up_h, W=self.opt.up_w, size=100).dataloader()
                 self.opt.mask_thresh = self.opt.up_mask_thresh
@@ -661,7 +660,6 @@ class Trainer(object):
                     if self.opt.if_smooth_mesh:
                         self.smooth_mesh()
                     self.update_mask_mesh_sampler((self.model.mesh_vertices + self.model.mesh_vertices_offset))
-                    self.update_model_mesh_sampler((self.model.mesh_vertices + self.model.mesh_vertices_offset))
 
                     # 更新mesh loss
                     tmp_mask_mesh = o3d.io.read_triangle_mesh(os.path.join(self.workspace, 'tmp.ply'))
